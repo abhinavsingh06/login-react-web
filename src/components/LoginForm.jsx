@@ -32,12 +32,29 @@ const LoginForm = () => {
     setOtp(event.target.value);
   };
 
-  const handleEmailSubmit = () => {};
+  const handleBack = () => {
+    setEmail(prevEmail);
+    setIsOtpSent(false);
+    setIsResendDisabled(true);
+    if (prevEmail === email) {
+      setCounter(prevCounter);
+    }
+  };
+
+  const handleEmailSubmit = (event) => {
+    event.preventDefault();
+    if (email !== prevEmail) {
+      setIsOtpSent(false);
+      setCounter(30);
+      setIsResendDisabled(false);
+    }
+    setPrevEmail(email);
+    handleSendOtp();
+  };
 
 
   const handleOtpSubmit = () => {};
 
-  const handleBack = () => {};
 
   const handleSendOtp = () => {};
 
