@@ -12,13 +12,28 @@ const LoginForm = () => {
   const [prevEmail, setPrevEmail] = useState("");
   const [prevCounter, setPrevCounter] = useState(30);
 
-  const handleEmailSubmit = () => {};
+  useEffect(() => {
+    let intervalId;
+    if (counter > 0 && isResendDisabled) {
+      intervalId = setInterval(() => {
+        setCounter((prevCounter) => prevCounter - 1);
+      }, 1000);
+    } else {
+      setIsResendDisabled(false);
+    }
+    return () => clearInterval(intervalId);
+  }, [counter, isResendDisabled]);
 
   const handleChange = (event) => {
     setEmail(event.target.value);
   };
 
-  const handleOtpChange = () => {};
+  const handleOtpChange = (event) => {
+    setOtp(event.target.value);
+  };
+
+  const handleEmailSubmit = () => {};
+
 
   const handleOtpSubmit = () => {};
 
