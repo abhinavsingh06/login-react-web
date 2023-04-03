@@ -28,19 +28,6 @@ const LoginForm = () => {
     setEmail(event.target.value);
   };
 
-  const handleOtpChange = (event) => {
-    setOtp(event.target.value);
-  };
-
-  const handleBack = () => {
-    setEmail(prevEmail);
-    setIsOtpSent(false);
-    setIsResendDisabled(true);
-    if (prevEmail === email) {
-      setCounter(prevCounter);
-    }
-  };
-
   const handleEmailSubmit = (event) => {
     event.preventDefault();
     if (email !== prevEmail) {
@@ -52,9 +39,61 @@ const LoginForm = () => {
     handleSendOtp();
   };
 
-  const handleOtpSubmit = () => {};
+  const handleOtpChange = (event) => {
+    setOtp(event.target.value);
+  };
 
-  const handleSendOtp = () => {};
+  const handleOtpSubmit = (event) => {
+    event.preventDefault();
+    if (otp === "1234") {
+      console.log("OTP verified");
+      setIsOtpSent(false);
+      setEmail("");
+      setOtp("");
+      setCounter(30);
+      setIsResendDisabled(false);
+      toast.success("OTP verified");
+    } else {
+      console.log("Invalid OTP");
+      toast.error("Invalid OTP");
+    }
+  };
+
+  const handleSendOtp = () => {
+    const mockOtp = Math.floor(1000 + Math.random() * 9000);
+    console.log(`OTP sent to ${email}: ${mockOtp}`);
+
+    setIsOtpSent(true);
+    setIsResendDisabled(true);
+
+    if (counter === 30 && prevEmail === email) {
+      setCounter(prevCounter);
+    } else {
+      setPrevCounter(counter);
+      setCounter(30);
+    }
+
+    const intervalId = setInterval(() => {
+      setCounter((prevCounter) => {
+        if (prevCounter === 1) {
+          clearInterval(intervalId);
+          setIsResendDisabled(false);
+          return prevCounter - 1;
+        } else {
+          return prevCounter - 1;
+        }
+      });
+    }, 1000);
+  };
+
+  const handleBack = () => {
+    setEmail(prevEmail);
+    setIsOtpSent(false);
+    setIsResendDisabled(true);
+    if (prevEmail === email) {
+      setCounter(prevCounter);
+    }
+  };
 
   return (
     <>
