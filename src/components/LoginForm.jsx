@@ -97,7 +97,19 @@ const LoginForm = () => {
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        bodyClassName="toastBody"
+      />
       <div className="background">
         <div className="shape"></div>
         <div class="shape"></div>
