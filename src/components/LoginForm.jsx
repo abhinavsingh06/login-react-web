@@ -52,56 +52,63 @@ const LoginForm = () => {
     handleSendOtp();
   };
 
-
   const handleOtpSubmit = () => {};
-
 
   const handleSendOtp = () => {};
 
   return (
     <>
-      <form onSubmit={handleEmailSubmit} className="">
-        <h3>Login Here</h3>
-        <label for="username">Username</label>
-        <input
-          type="email"
-          value={email}
-          onChange={handleChange}
-          required
-          placeholder="Email"
-          id="username"
-        />
-        <button type="submit">Send OTP</button>
-      </form>
-
-      <form onSubmit={handleOtpSubmit} className="">
-        <h3>Login Here</h3>
-        <label for="otp">OTP:</label>
-        <input
-          type="password"
-          value={otp}
-          onChange={handleOtpChange}
-          placeholder="Enter OTP"
-          id="otp"
-        />
-        <div>
-          <div className="btn-wrapper">
-            <button type="submit" className="btn">
-              Submit
-            </button>
-            <button type="button" onClick={handleBack} className="btn">
-              Back
-            </button>
-          </div>
-          <button
-            type="button"
-            onClick={handleSendOtp}
-            disabled={isResendDisabled}
-          >
-            {isResendDisabled ? `Resend OTP in ${counter}s` : "Resend OTP"}
-          </button>
-        </div>
-      </form>
+      <ToastContainer />
+      <div className="background">
+        <div className="shape"></div>
+        <div class="shape"></div>
+      </div>
+      <div className="">
+        {!isOtpSent ? (
+          <form onSubmit={handleEmailSubmit} className="">
+            <h3>Login Here</h3>
+            <label for="username">Username</label>
+            <input
+              type="email"
+              value={email}
+              onChange={handleChange}
+              required
+              placeholder="Email"
+              id="username"
+            />
+            <button type="submit">Send OTP</button>
+          </form>
+        ) : (
+          <form onSubmit={handleOtpSubmit} className="">
+            <h3>Login Here</h3>
+            <label for="otp">OTP:</label>
+            <input
+              type="password"
+              value={otp}
+              onChange={handleOtpChange}
+              placeholder="Enter OTP"
+              id="otp"
+            />
+            <div>
+              <div className="btn-wrapper">
+                <button type="submit" className="btn">
+                  Submit
+                </button>
+                <button type="button" onClick={handleBack} className="btn">
+                  Back
+                </button>
+              </div>
+              <button
+                type="button"
+                onClick={handleSendOtp}
+                disabled={isResendDisabled}
+              >
+                {isResendDisabled ? `Resend OTP in ${counter}s` : "Resend OTP"}
+              </button>
+            </div>
+          </form>
+        )}
+      </div>
     </>
   );
 };
